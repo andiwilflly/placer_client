@@ -3,6 +3,7 @@
 /node_modules
 
 
+passwords.json
 # Logs
 logs
 *.log
