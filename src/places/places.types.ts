@@ -22,8 +22,8 @@ export interface IPlace {
 export interface IExploreParams {
   lat: string;
   lng: string;
-  limit: number;
 
+  limit?: number;
   time?: string;
   day?: string;
   offset?: number;

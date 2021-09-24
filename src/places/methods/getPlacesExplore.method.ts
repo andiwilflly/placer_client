@@ -55,7 +55,11 @@ async function _getPlaces({
     return JSON.parse(document.querySelector('body').innerText);
   });
 
-  const totalResults = data.response.totalResults;
+  const totalResults = exploreParams.limit
+    ? data.response.totalResults > exploreParams.limit
+      ? exploreParams.limit
+      : data.response.totalResults
+    : data.response.totalResults;
   const places = data.response.groups
     .map((group) => group.items.map((item) => item))
     .flat();
@@ -71,6 +75,7 @@ async function _getPlaces({
     }
 
     formattedPlaces.push(formattedPlace);
+
     // placesModel.create(formattedPlace).catch(console.log);
   }
 
@@ -92,7 +97,7 @@ function _getFoursquareExploreUrl(exploreParams: any, offset: number) {
       client_secret=${'XXXX'}&
       v=${process.env.FOURSQUARE_VERSION}&
       categoryId=${exploreParams.categoryId || []}&
-      limit=${exploreParams.limit || 50}&
+      limit=${50}&
       offset=${offset || exploreParams.offset || 0}&
       radius=${exploreParams.radius || 500}&
       ll=${exploreParams.lat},${exploreParams.lng}`

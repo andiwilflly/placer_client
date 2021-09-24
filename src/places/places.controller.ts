@@ -1,4 +1,12 @@
-import { Controller, Param, Body, Get, Delete, Post } from '@nestjs/common';
+import {
+  Controller,
+  Param,
+  Query,
+  Body,
+  Get,
+  Delete,
+  Post,
+} from '@nestjs/common';
 import { PlacesService } from './places.service';
 import { IExploreParams, IScanParams, IPlace, IPlaceDoc } from './places.types';
 
@@ -6,8 +14,8 @@ import { IExploreParams, IScanParams, IPlace, IPlaceDoc } from './places.types';
 export class PlacesController {
   constructor(private readonly placesService: PlacesService) {}
 
-  @Post('explore')
-  async explore(@Body() exploreParams: IExploreParams): Promise<IPlace[]> {
+  @Get('explore')
+  async explore(@Query() exploreParams: IExploreParams): Promise<IPlace[]> {
     return await this.placesService.explore(exploreParams);
   }
 
